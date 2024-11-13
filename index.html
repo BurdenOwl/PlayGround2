@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head id="lockDown2">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locker 4</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body id="lockDown" class="hidden">
+
+    <p>I like food</p>
+
+    <script>
+        const previousFlag = "020dd3dc162a25483a5648c8ea007dc379ed5cb922f5cc7e4d2c48b3b69cc354";
+
+        const hashData = async (data) => {
+            const encodedData = new TextEncoder().encode(data);
+            const hashBuffer = await crypto.subtle.digest("SHA-256", encodedData);
+            return Array.prototype.slice.call(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        };
+
+        const doubleCheck = async () => {
+            let question = prompt("To continue, please enter the previous");
+            let locked = document.getElementById('lockDown');
+            let locked2 = document.getElementById('lockDown2');
+            if (previousFlag !== await hashData(question.toUpperCase())) {
+                locked.innerHTML = ``;
+                locked2.innerHTML = ``;
+                return;
+            };
+            locked.classList.remove("hidden");
+        };
+
+        doubleCheck();
+    </script>
+</body>
+</html>
