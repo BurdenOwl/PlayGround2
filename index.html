@@ -12,11 +12,14 @@
 </head>
 <body id="lockDown" class="hidden">
 
-
+    <p>funny hahahahahahahhahaha</p>
 
     <script src="assets/js/script.js"></script>
     <script>
-        const previousFlag = "020dd3dc162a25483a5648c8ea007dc379ed5cb922f5cc7e4d2c48b3b69cc354";
+        const previousFlag1 = "5b13e6ce35308ba68ec23c126ea64d2abefff466e65112b452b6d0506ca66d68";
+        const previousFlag2 = "b1fc7cae5c24f2625866f490e53b17f4e4ddb30c33d6422ff650dce5a8345253";
+        const previousFlag3 = "020dd3dc162a25483a5648c8ea007dc379ed5cb922f5cc7e4d2c48b3b69cc354";
+        let questionNumber = 1;
 
         const hashData = async (data) => {
             const encodedData = new TextEncoder().encode(data);
@@ -25,15 +28,38 @@
         };
 
         const doubleCheck = async () => {
-            let question = prompt("To continue, please enter the previous");
             let locked = document.getElementById('lockDown');
             let locked2 = document.getElementById('lockDown2');
-            if (previousFlag !== await hashData(question.toUpperCase())) {
-                locked.innerHTML = ``;
-                locked2.innerHTML = ``;
-                return;
+            if (questionNumber == 1) {
+                let question = prompt("To continue, please enter the key for Locker1");
+                if (previousFlag1 !== await hashData(question.toUpperCase())) {
+                    locked.innerHTML = ``;
+                    locked2.innerHTML = ``;
+                    return;
+                };
+            } else if (questionNumber == 2) {
+                let question = prompt("To continue, please enter the key for Locker2");
+                if (previousFlag2 !== await hashData(question.toUpperCase())) {
+                    locked.innerHTML = ``;
+                    locked2.innerHTML = ``;
+                    return;
+                };
+            } else if (questionNumber == 3) {
+                let question = prompt("To continue, please enter the key for Locker3");
+                if (previousFlag3 !== await hashData(question.toUpperCase())) {
+                    locked.innerHTML = ``;
+                    locked2.innerHTML = ``;
+                    return;
+                };
             };
-            locked.classList.remove("hidden");
+            
+            ++questionNumber;
+
+            if (question == 4) {
+                locked.classList.remove("hidden");
+                return;
+            }
+            doubleCheck();
         };
 
         doubleCheck();
