@@ -5,7 +5,6 @@ let questionNumber = 1;
 
 const doubleCheck = async () => {
     let locked = document.getElementById('lockDown');
-    let locked2 = document.getElementById('lockDown2');
     let question;
     
     while (true) {
